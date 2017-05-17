@@ -1,16 +1,24 @@
 import { Injectable } from '@angular/core';
-import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
+import * as firebase from "firebase";
 
 @Injectable()
 export class AuthService {
-  constructor(public af: AngularFire) { }
+  
+  constructor() { }
+
   loginWithGoogle() {
-    return this.af.auth.login({
-      provider: AuthProviders.Google,
-      method: AuthMethods.Popup
-    });
+    
+  var provider = new firebase.auth.GoogleAuthProvider();
+  
+  provider.addScope('https://www.googleapis.com/auth/plus.login');
+  provider.addScope('profile');
+  provider.addScope('email');
+  
+  return firebase.auth().signInWithPopup(provider);
   }
+
   logout() {
-    return this.af.auth.logout();
+    //return this.afa.auth.signOut();
+    firebase.auth().signOut();
   }
 }
