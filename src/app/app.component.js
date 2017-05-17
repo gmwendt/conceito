@@ -26,6 +26,15 @@ var AppComponent = (function () {
             messagingSenderId: "203021034543"
         };
         firebase.initializeApp(config);
+        console.log(firebase.auth().currentUser);
+        if (firebase.auth().currentUser) {
+            this.isLoggedIn = true;
+            this.router.navigate(['']);
+        }
+        else {
+            this.isLoggedIn = false;
+            this.router.navigate(['login']);
+        }
         /*this.authService.af.auth.subscribe(
           (auth) => {
             if (auth == null) {

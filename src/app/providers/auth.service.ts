@@ -18,7 +18,14 @@ export class AuthService {
   }
 
   logout() {
-    //return this.afa.auth.signOut();
-    firebase.auth().signOut();
+    firebase.auth().signOut().then(function() {
+      console.log('Signed Out');
+    }, function(error) {
+      console.error('Sign Out Error', error);
+    });
+  }
+
+  getUser(): firebase.User {
+    return firebase.auth().currentUser;
   }
 }

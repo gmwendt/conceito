@@ -21,8 +21,14 @@ var AuthService = (function () {
         return firebase.auth().signInWithPopup(provider);
     };
     AuthService.prototype.logout = function () {
-        //return this.afa.auth.signOut();
-        firebase.auth().signOut();
+        firebase.auth().signOut().then(function () {
+            console.log('Signed Out');
+        }, function (error) {
+            console.error('Sign Out Error', error);
+        });
+    };
+    AuthService.prototype.getUser = function () {
+        return firebase.auth().currentUser;
     };
     return AuthService;
 }());

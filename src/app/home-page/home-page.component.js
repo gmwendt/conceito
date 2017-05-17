@@ -17,6 +17,14 @@ var HomePageComponent = (function () {
         this.router = router;
     }
     HomePageComponent.prototype.ngOnInit = function () {
+        this.user = this.authService.getUser();
+        if (this.user) {
+            this.displayName = this.user.displayName;
+        }
+        else {
+            this.displayName = "";
+            this.router.navigate(['login']);
+        }
     };
     HomePageComponent.prototype.logout = function () {
         this.authService.logout();
