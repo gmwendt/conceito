@@ -8,13 +8,17 @@ export class AuthService {
 
   loginWithGoogle() {
     
-  var provider = new firebase.auth.GoogleAuthProvider();
+  // var provider = new firebase.auth.GoogleAuthProvider();
   
-  provider.addScope('https://www.googleapis.com/auth/plus.login');
-  provider.addScope('profile');
-  provider.addScope('email');
+  // provider.addScope('https://www.googleapis.com/auth/plus.login');
+  // provider.addScope('profile');
+  // provider.addScope('email');
   
-  return firebase.auth().signInWithPopup(provider);
+  // return firebase.auth().signInWithPopup(provider);
+  }
+
+  loginWithEmailAndPass(email: string, pass: string) {
+    return firebase.auth().signInWithEmailAndPassword(email, pass);
   }
 
   logout() {
@@ -31,5 +35,9 @@ export class AuthService {
 
   register(email: string, pass: string) {
     return firebase.auth().createUserWithEmailAndPassword(email, pass);
+  }
+
+  sendVerificationEmail(): void {
+    firebase.auth().currentUser.sendEmailVerification();
   }
 }

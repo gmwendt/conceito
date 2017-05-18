@@ -21,6 +21,8 @@ var RegisterPageComponent = (function () {
         if (!this.check())
             return;
         this.authService.register(this.email, this.pass).then(function (result) {
+            result.sendEmailVerification();
+            _this.router.navigate(['']);
             //redirect to successful new user
         }).catch(function (error) {
             if (error)

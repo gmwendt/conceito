@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 
 import { AuthService } from './providers/auth.service';
 
+import { StorageService } from './services/storage';
+
+
 import * as firebase from "firebase";
 
 @Component({
@@ -15,7 +18,7 @@ export class AppComponent implements OnInit {
   private user_displayName: String;
   private user_email: String;
 
-  constructor(public authService: AuthService, private router: Router) {
+  constructor(public authService: AuthService, private router: Router, private storage: StorageService) {
 
   	// Initialize Firebase
 	  var config = {
@@ -28,30 +31,29 @@ export class AppComponent implements OnInit {
 	  };
 	  
 	  firebase.initializeApp(config);
-
-	  /*this.authService.af.auth.subscribe(
-      (auth) => {
-        if (auth == null) {
-          console.log("Logged out");
-          this.isLoggedIn = false;
-          this.user_displayName = '';
-          this.user_email = '';
-          this.router.navigate(['login']);
-        } else {
-          this.isLoggedIn = true;
-          this.user_displayName = auth.google.displayName;
-          this.user_email = auth.google.email;
-          console.log("Logged in");
-          console.log(auth);
-          this.router.navigate(['']);
-        }
-      }
-    );*/
-    
   }
 
   ngOnInit() {
-    console.log(firebase.auth().currentUser);
+    // if (firebase.auth().currentUser)
+    //   this.isLoggedIn = true;
+    // else 
+    //   this.isLoggedIn = false;
+    this.storage.getAsync("loginToken").then((result)=>{
+       console.log(result);
+    });
+  }
+
+  private on_logged_event(result: any) {
+    if (!result.uid)
+      return;
+
+    this.isLoggedIn = true;
+
+    if (result.emailVerified)
+      this.router.navigate(['home']);
+    else {
+      //route to not verified email
+    }
   }
 
 }

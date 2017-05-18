@@ -14,11 +14,14 @@ var AuthService = (function () {
     function AuthService() {
     }
     AuthService.prototype.loginWithGoogle = function () {
-        var provider = new firebase.auth.GoogleAuthProvider();
-        provider.addScope('https://www.googleapis.com/auth/plus.login');
-        provider.addScope('profile');
-        provider.addScope('email');
-        return firebase.auth().signInWithPopup(provider);
+        // var provider = new firebase.auth.GoogleAuthProvider();
+        // provider.addScope('https://www.googleapis.com/auth/plus.login');
+        // provider.addScope('profile');
+        // provider.addScope('email');
+        // return firebase.auth().signInWithPopup(provider);
+    };
+    AuthService.prototype.loginWithEmailAndPass = function (email, pass) {
+        return firebase.auth().signInWithEmailAndPassword(email, pass);
     };
     AuthService.prototype.logout = function () {
         firebase.auth().signOut().then(function () {
@@ -32,6 +35,9 @@ var AuthService = (function () {
     };
     AuthService.prototype.register = function (email, pass) {
         return firebase.auth().createUserWithEmailAndPassword(email, pass);
+    };
+    AuthService.prototype.sendVerificationEmail = function () {
+        firebase.auth().currentUser.sendEmailVerification();
     };
     return AuthService;
 }());

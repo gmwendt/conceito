@@ -1,12 +1,39 @@
-<div class="container">
-  <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
+<style>
+
+.__container {
+  
+}
+
+.__navbar {
+  background-color: aliceblue;
+  display: table;
+  width: 100%;
+}
+
+.__navbar_content {
+  float: left;
+}
+
+.__login_container {
+    float: right;
+    width: 310px;
+}
+
+</style>
+
+<div class="__container">
+  <nav class="__navbar">
+    <div class="__navbar_content">
       <div *ngIf="isLoggedIn">
-        <p class="navbar-text navbar-right">Logged In: {{user_displayName}} ({{user_email}})<p>
+        <p>Logged In: {{user_displayName}} ({{user_email}})<p>
       </div>
       <div *ngIf="!isLoggedIn">
-        <p class="navbar-text navbar-right">Logged Out</p>
+        <p>Logged Out</p>
       </div>
+    </div>
+
+    <div class="__login_container">
+      <app-login-page *ngIf="!isLoggedIn" (loggedEvent)="on_logged_event($event)"></app-login-page>
     </div>
   </nav>
   <router-outlet></router-outlet>

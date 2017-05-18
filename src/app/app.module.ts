@@ -8,8 +8,13 @@ import { AngularFireModule, FirebaseApp } from 'angularfire2';
 import { AppComponent }  from './app.component';
 
 import { AuthService } from './providers/auth.service';
-import { LoginPageComponent } from './login-page/login-page.component';
+
+import { StorageService } from './services/storage';
+
+
+import { DefaultHomeComponent } from './default-home/default-home.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { LoginPageComponent } from './login-page/login-page.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 
 export const firebaseConfig = {
@@ -22,7 +27,8 @@ export const firebaseConfig = {
   };
 
    const routes: Routes = [
-   { path: '', component: HomePageComponent },
+   { path: '', component: DefaultHomeComponent },
+   { path: 'home', component: HomePageComponent },
    { path: 'login', component: LoginPageComponent },
    { path: 'register', component: RegisterPageComponent}
  ];
@@ -36,8 +42,8 @@ export const firebaseConfig = {
     //firebase.initializeApp()
     RouterModule.forRoot(routes)
   ],
-  declarations: [ AppComponent, LoginPageComponent, HomePageComponent, RegisterPageComponent ],
-  providers: [AuthService],
+  declarations: [ AppComponent, DefaultHomeComponent, LoginPageComponent, HomePageComponent, RegisterPageComponent ],
+  providers: [AuthService, StorageService],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

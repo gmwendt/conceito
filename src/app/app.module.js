@@ -12,8 +12,10 @@ var http_1 = require("@angular/http");
 var router_1 = require("@angular/router");
 var app_component_1 = require("./app.component");
 var auth_service_1 = require("./providers/auth.service");
-var login_page_component_1 = require("./login-page/login-page.component");
+var storage_1 = require("./services/storage");
+var default_home_component_1 = require("./default-home/default-home.component");
 var home_page_component_1 = require("./home-page/home-page.component");
+var login_page_component_1 = require("./login-page/login-page.component");
 var register_page_component_1 = require("./register-page/register-page.component");
 exports.firebaseConfig = {
     apiKey: "AIzaSyDbyzGqS8KfhXHcOb18Fltx-rLbC2cHgws",
@@ -24,7 +26,8 @@ exports.firebaseConfig = {
     messagingSenderId: "203021034543"
 };
 var routes = [
-    { path: '', component: home_page_component_1.HomePageComponent },
+    { path: '', component: default_home_component_1.DefaultHomeComponent },
+    { path: 'home', component: home_page_component_1.HomePageComponent },
     { path: 'login', component: login_page_component_1.LoginPageComponent },
     { path: 'register', component: register_page_component_1.RegisterPageComponent }
 ];
@@ -43,8 +46,8 @@ AppModule = __decorate([
             //firebase.initializeApp()
             router_1.RouterModule.forRoot(routes)
         ],
-        declarations: [app_component_1.AppComponent, login_page_component_1.LoginPageComponent, home_page_component_1.HomePageComponent, register_page_component_1.RegisterPageComponent],
-        providers: [auth_service_1.AuthService],
+        declarations: [app_component_1.AppComponent, default_home_component_1.DefaultHomeComponent, login_page_component_1.LoginPageComponent, home_page_component_1.HomePageComponent, register_page_component_1.RegisterPageComponent],
+        providers: [auth_service_1.AuthService, storage_1.StorageService],
         bootstrap: [app_component_1.AppComponent]
     })
 ], AppModule);

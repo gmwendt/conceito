@@ -22,7 +22,9 @@ export class RegisterPageComponent {
 		if (!this.check())
 			return;
 
-		this.authService.register(this.email, this.pass).then((result:any)=>{
+		this.authService.register(this.email, this.pass).then((result: firebase.User) => {
+			result.sendEmailVerification();
+			this.router.navigate(['']);
 			//redirect to successful new user
 		}).catch((error:any) => {
 			if(error)

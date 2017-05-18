@@ -2,13 +2,24 @@
 .__link {	
 	font-size: 11pt;
 	cursor: pointer;
+	display: table-cell;
+	vertical-align: bottom;
+	padding-left: 6px;
 }
 .__link:hover {
 	font-weight: bold;
 }
 
 .__input_labels {
+	padding-left: 3px;
 	font-size: 10pt;
+	display: table-cell;;
+}
+
+.__error_msg {
+	font-size: 10pt;
+	padding-left: 3px;
+	color: orangered;
 }
 
 input {
@@ -18,8 +29,9 @@ input {
 </style>
 
 <div style="width: 114px">
-	<div class="__input_labels">Email <input type="textbox" name=""></div>
-	<div class="__input_labels">Senha <input type="textbox" name=""></div>
-	<div class="__link" style="float: left; margin: 1px 7px 0 0" (click)="login()">Entrar</div>	|
-	<div class="__link" style="float: right; margin-top: 2px;" (click)="register()">Registrar</div>
+	<div class="__input_labels">Email <input type="textbox" name="" [(ngModel)]="email"></div>
+	<div class="__input_labels">Senha <input type="textbox" name="" [(ngModel)]="pass"></div>
+	<div class="__link" (click)="login()">OK</div>
+	<div class="__link" (click)="register()">Registrar</div>
+	<div class="__error_msg">{{ error_msg }}</div>
 </div>

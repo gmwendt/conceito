@@ -11,11 +11,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var auth_service_1 = require("./providers/auth.service");
+var storage_1 = require("./services/storage");
 var firebase = require("firebase");
 var AppComponent = (function () {
-    function AppComponent(authService, router) {
+    function AppComponent(authService, router, storage) {
         this.authService = authService;
         this.router = router;
+        this.storage = storage;
         // Initialize Firebase
         var config = {
             apiKey: "AIzaSyDbyzGqS8KfhXHcOb18Fltx-rLbC2cHgws",
@@ -26,27 +28,24 @@ var AppComponent = (function () {
             messagingSenderId: "203021034543"
         };
         firebase.initializeApp(config);
-        /*this.authService.af.auth.subscribe(
-        (auth) => {
-          if (auth == null) {
-            console.log("Logged out");
-            this.isLoggedIn = false;
-            this.user_displayName = '';
-            this.user_email = '';
-            this.router.navigate(['login']);
-          } else {
-            this.isLoggedIn = true;
-            this.user_displayName = auth.google.displayName;
-            this.user_email = auth.google.email;
-            console.log("Logged in");
-            console.log(auth);
-            this.router.navigate(['']);
-          }
-        }
-      );*/
     }
     AppComponent.prototype.ngOnInit = function () {
-        console.log(firebase.auth().currentUser);
+        // if (firebase.auth().currentUser)
+        //   this.isLoggedIn = true;
+        // else 
+        //   this.isLoggedIn = false;
+        this.storage.getAsync("loginToken").then(function (result) {
+            console.log(result);
+        });
+    };
+    AppComponent.prototype.on_logged_event = function (result) {
+        if (!result.uid)
+            return;
+        this.isLoggedIn = true;
+        if (result.emailVerified)
+            this.router.navigate(['home']);
+        else {
+        }
     };
     return AppComponent;
 }());
@@ -55,7 +54,7 @@ AppComponent = __decorate([
         selector: 'my-app',
         templateUrl: './app.component.html'
     }),
-    __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router])
+    __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router, storage_1.StorageService])
 ], AppComponent);
 exports.AppComponent = AppComponent;
 //# sourceMappingURL=app.component.js.map
