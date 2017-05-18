@@ -1,6 +1,25 @@
-<div class="container">
-  <div>
-    <h1>Login To Your Account</h1>
-    <button class="btn btn-default" (click)="login()">Login With Google</button>
-  </div>
+<style>
+.__link {	
+	font-size: 11pt;
+	cursor: pointer;
+}
+.__link:hover {
+	font-weight: bold;
+}
+
+.__input_labels {
+	font-size: 10pt;
+}
+
+input {
+	width: 100px;
+}
+
+</style>
+
+<div style="width: 114px">
+	<div class="__input_labels">Email <input type="textbox" name=""></div>
+	<div class="__input_labels">Senha <input type="textbox" name=""></div>
+	<div class="__link" style="float: left; margin: 1px 7px 0 0" (click)="login()">Entrar</div>	|
+	<div class="__link" style="float: right; margin-top: 2px;" (click)="register()">Registrar</div>
 </div>

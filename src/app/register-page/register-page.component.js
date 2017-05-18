@@ -11,32 +11,37 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var auth_service_1 = require("../providers/auth.service");
-var LoginPageComponent = (function () {
-    function LoginPageComponent(authService, router) {
+var RegisterPageComponent = (function () {
+    function RegisterPageComponent(authService, router) {
         this.authService = authService;
         this.router = router;
     }
-    LoginPageComponent.prototype.ngOnInit = function () { };
-    LoginPageComponent.prototype.login = function () {
+    RegisterPageComponent.prototype.register = function () {
         var _this = this;
-        /*this.authService.loginWithGoogle().then((data: any) => {
-          this.router.navigate(['']);
-        });*/
-        this.authService.loginWithGoogle().then(function (result) {
-            _this.router.navigate(['']);
+        if (!this.check())
+            return;
+        this.authService.register(this.email, this.pass).then(function (result) {
+            //redirect to successful new user
+        }).catch(function (error) {
+            if (error)
+                _this.alert = error.message;
         });
     };
-    LoginPageComponent.prototype.register = function () {
-        this.router.navigate(['register']);
+    RegisterPageComponent.prototype.check = function () {
+        if (!this.email && !this.first_name && !this.last_name && !this.pass) {
+            this.alert = "Preencha todos os campos.";
+            return false;
+        }
+        return true;
     };
-    return LoginPageComponent;
+    return RegisterPageComponent;
 }());
-LoginPageComponent = __decorate([
+RegisterPageComponent = __decorate([
     core_1.Component({
-        selector: 'app-login-page',
-        templateUrl: './login-page.component.html',
+        selector: 'app-register-page',
+        templateUrl: './register-page.component.html',
     }),
     __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router])
-], LoginPageComponent);
-exports.LoginPageComponent = LoginPageComponent;
-//# sourceMappingURL=login-page.component.js.map
+], RegisterPageComponent);
+exports.RegisterPageComponent = RegisterPageComponent;
+//# sourceMappingURL=register-page.component.js.map

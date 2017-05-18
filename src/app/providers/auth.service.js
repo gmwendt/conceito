@@ -30,6 +30,9 @@ var AuthService = (function () {
     AuthService.prototype.getUser = function () {
         return firebase.auth().currentUser;
     };
+    AuthService.prototype.register = function (email, pass) {
+        return firebase.auth().createUserWithEmailAndPassword(email, pass);
+    };
     return AuthService;
 }());
 AuthService = __decorate([

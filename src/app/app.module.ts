@@ -10,6 +10,7 @@ import { AppComponent }  from './app.component';
 import { AuthService } from './providers/auth.service';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { RegisterPageComponent } from './register-page/register-page.component';
 
 export const firebaseConfig = {
     apiKey: "AIzaSyDbyzGqS8KfhXHcOb18Fltx-rLbC2cHgws",
@@ -22,7 +23,8 @@ export const firebaseConfig = {
 
    const routes: Routes = [
    { path: '', component: HomePageComponent },
-   { path: 'login', component: LoginPageComponent }
+   { path: 'login', component: LoginPageComponent },
+   { path: 'register', component: RegisterPageComponent}
  ];
 
 @NgModule({
@@ -34,7 +36,7 @@ export const firebaseConfig = {
     //firebase.initializeApp()
     RouterModule.forRoot(routes)
   ],
-  declarations: [ AppComponent, LoginPageComponent, HomePageComponent ],
+  declarations: [ AppComponent, LoginPageComponent, HomePageComponent, RegisterPageComponent ],
   providers: [AuthService],
   bootstrap: [ AppComponent ]
 })

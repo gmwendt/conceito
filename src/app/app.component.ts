@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from './providers/auth.service';
@@ -9,7 +9,7 @@ import * as firebase from "firebase";
   selector: 'my-app',
   templateUrl: './app.component.html'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   private isLoggedIn: Boolean;
   private user_displayName: String;
@@ -29,17 +29,7 @@ export class AppComponent {
 	  
 	  firebase.initializeApp(config);
 
-	  console.log(firebase.auth().currentUser);
-	  if (firebase.auth().currentUser) {
-		this.isLoggedIn = true;
-		this.router.navigate(['']);
-	  }
-	  else {
-	  	this.isLoggedIn = false;
-	  	this.router.navigate(['login']);
-	  }
-
-    /*this.authService.af.auth.subscribe(
+	  /*this.authService.af.auth.subscribe(
       (auth) => {
         if (auth == null) {
           console.log("Logged out");
@@ -59,4 +49,9 @@ export class AppComponent {
     );*/
     
   }
+
+  ngOnInit() {
+    console.log(firebase.auth().currentUser);
+  }
+
 }

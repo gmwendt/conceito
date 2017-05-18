@@ -28,4 +28,8 @@ export class AuthService {
   getUser(): firebase.User {
     return firebase.auth().currentUser;
   }
+
+  register(email: string, pass: string) {
+    return firebase.auth().createUserWithEmailAndPassword(email, pass);
+  }
 }
