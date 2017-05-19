@@ -34,18 +34,21 @@ var AppComponent = (function () {
         //   this.isLoggedIn = true;
         // else 
         //   this.isLoggedIn = false;
-        this.storage.getAsync("loginToken").then(function (result) {
-            console.log(result);
-        });
+        //this.storage.getAsync("loginToken").then((result) => {
+        //});
+    };
+    AppComponent.prototype.register = function () {
+        this.router.navigate(['register']);
     };
     AppComponent.prototype.on_logged_event = function (result) {
         if (!result.uid)
             return;
         this.isLoggedIn = true;
-        if (result.emailVerified)
-            this.router.navigate(['home']);
-        else {
-        }
+        //if (result.emailVerified)
+        this.router.navigate(['home']);
+        //else {
+        //route to not verified email
+        //}
     };
     return AppComponent;
 }());

@@ -8,14 +8,15 @@ import { AngularFireModule, FirebaseApp } from 'angularfire2';
 import { AppComponent }  from './app.component';
 
 import { AuthService } from './providers/auth.service';
+import { DataService } from './providers/data.service';
 
 import { StorageService } from './services/storage';
 
-
-import { DefaultHomeComponent } from './default-home/default-home.component';
-import { HomePageComponent } from './home-page/home-page.component';
-import { LoginPageComponent } from './login-page/login-page.component';
-import { RegisterPageComponent } from './register-page/register-page.component';
+import { DefaultHomeComponent } from './components/pages/default-home/default-home.component';
+import { HomePageComponent } from './components/pages/home-page/home-page.component';
+import { LoginPageComponent } from './components/pages/login-page/login-page.component';
+import { RegisterPageComponent } from './components/pages/register-page/register-page.component';
+import { SelectCountryList } from './components/layout/select_country_list';
 
 export const firebaseConfig = {
     apiKey: "AIzaSyDbyzGqS8KfhXHcOb18Fltx-rLbC2cHgws",
@@ -38,12 +39,10 @@ export const firebaseConfig = {
   	BrowserModule, 
   	FormsModule,
     HttpModule,
-    //AngularFireModule.initializeApp(firebaseConfig),
-    //firebase.initializeApp()
     RouterModule.forRoot(routes)
   ],
-  declarations: [ AppComponent, DefaultHomeComponent, LoginPageComponent, HomePageComponent, RegisterPageComponent ],
-  providers: [AuthService, StorageService],
+  declarations: [ AppComponent, DefaultHomeComponent, HomePageComponent, LoginPageComponent, RegisterPageComponent, SelectCountryList ],
+  providers: [AuthService, DataService, StorageService],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

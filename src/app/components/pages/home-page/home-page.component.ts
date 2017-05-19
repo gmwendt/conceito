@@ -2,7 +2,9 @@ import * as firebase from "firebase";
 
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../providers/auth.service';
+
+import { AuthService } from '../../../providers/auth.service';
+import { DataService } from '../../../providers/data.service';
 
 @Component({
   selector: 'app-home-page',
@@ -14,7 +16,7 @@ export class HomePageComponent implements OnInit {
   private displayName: string;
   private user: firebase.User;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private m_dataService: DataService, private router: Router) {
   }
 
   ngOnInit() {
@@ -33,5 +35,11 @@ export class HomePageComponent implements OnInit {
   logout() {
     this.authService.logout();
     this.router.navigate(['login']);
+  }
+
+  add30() {
+    var expDate = new Date(Date.now());
+    expDate.setDate(expDate.getDate() + 30);
+    this.m_dataService.writeUserData(this.user.uid, "expDate", expDate.toUTCString());
   }
 }

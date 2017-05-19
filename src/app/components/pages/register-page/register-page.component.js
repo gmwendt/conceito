@@ -10,31 +10,41 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var auth_service_1 = require("../providers/auth.service");
+var auth_service_1 = require("../../../providers/auth.service");
+var data_service_1 = require("../../../providers/data.service");
 var RegisterPageComponent = (function () {
-    function RegisterPageComponent(authService, router) {
+    function RegisterPageComponent(authService, m_dataService, router) {
         this.authService = authService;
+        this.m_dataService = m_dataService;
         this.router = router;
     }
     RegisterPageComponent.prototype.register = function () {
         var _this = this;
         if (!this.check())
             return;
-        this.authService.register(this.email, this.pass).then(function (result) {
+        this.authService.register(this.m_email, this.m_pass).then(function (result) {
             result.sendEmailVerification();
-            _this.router.navigate(['']);
-            //redirect to successful new user
+            _this.createUserData(result);
         }).catch(function (error) {
             if (error)
-                _this.alert = error.message;
+                _this.m_alert = error.message;
         });
     };
     RegisterPageComponent.prototype.check = function () {
-        if (!this.email && !this.first_name && !this.last_name && !this.pass) {
-            this.alert = "Preencha todos os campos.";
+        if (!this.m_email && !this.m_first_name && !this.m_last_name && !this.m_pass && !this.m_country) {
+            this.m_alert = "Preencha todos os campos.";
             return false;
         }
         return true;
+    };
+    RegisterPageComponent.prototype.createUserData = function (user) {
+        var _this = this;
+        this.m_dataService.writeNewUser(user.uid, this.m_first_name, this.m_last_name, this.m_email, this.m_country).then(function (result) {
+            _this.router.navigate(['']);
+            //redirect to successful new user
+        }).catch(function (error) {
+            console.log(error);
+        });
     };
     return RegisterPageComponent;
 }());
@@ -43,7 +53,7 @@ RegisterPageComponent = __decorate([
         selector: 'app-register-page',
         templateUrl: './register-page.component.html',
     }),
-    __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router])
+    __metadata("design:paramtypes", [auth_service_1.AuthService, data_service_1.DataService, router_1.Router])
 ], RegisterPageComponent);
 exports.RegisterPageComponent = RegisterPageComponent;
 //# sourceMappingURL=register-page.component.js.map

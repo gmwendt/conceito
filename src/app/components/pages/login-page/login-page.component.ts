@@ -1,9 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AuthService } from '../providers/auth.service';
+import { AuthService } from '../../../providers/auth.service';
 
-import { StorageService } from '../services/storage';
+import { StorageService } from '../../../services/storage';
 
 
 @Component({
@@ -32,16 +32,20 @@ export class LoginPageComponent implements OnInit {
   }
 
   login(): void {
-    try{
-      this.authService.loginWithEmailAndPass(this.email, this.pass).then((result:any) => {
+    try {
+      this.authService.loginWithEmailAndPass(this.email, this.pass).then((result: any) => {
 
-        this.storage.setOrUpdateAsync("loginToken", result.refreshToken);
+        //this.storage.setOrUpdateAsync("loginToken", result.refreshToken);
 
         this.loggedEvent.emit(result);
+      }).catch((error: any) => {
+        this.setErrorMsg(error.code);
+        console.log(error);  
       });
     }
     catch (error) {
-      this.setErrorMsg(error.message);
+      this.setErrorMsg(error.code);
+      console.log(error);
     }
   }
 
@@ -54,12 +58,15 @@ export class LoginPageComponent implements OnInit {
       case "auth/user-not-found":
         this.error_msg = "Usuário não encontrado";
         break;
+      case "auth/invalid-email":
+        this.error_msg = "E-Mail inválido";
+        break;
       case "auth/wrong-password":
         this.error_msg = "Senha inválida";
         break;
       case "auth/argument-error":
-        this.error_msg = "E-Mail inválido";
-
+        this.error_msg = "Argumentos inválidos";
+        break;
       default:
         this.error_msg = msg;
         break;

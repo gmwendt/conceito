@@ -10,8 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var auth_service_1 = require("../providers/auth.service");
-var storage_1 = require("../services/storage");
+var auth_service_1 = require("../../../providers/auth.service");
+var storage_1 = require("../../../services/storage");
 var LoginPageComponent = (function () {
     function LoginPageComponent(authService, router, storage) {
         this.authService = authService;
@@ -29,12 +29,16 @@ var LoginPageComponent = (function () {
         var _this = this;
         try {
             this.authService.loginWithEmailAndPass(this.email, this.pass).then(function (result) {
-                _this.storage.setOrUpdateAsync("loginToken", result.refreshToken);
+                //this.storage.setOrUpdateAsync("loginToken", result.refreshToken);
                 _this.loggedEvent.emit(result);
+            }).catch(function (error) {
+                _this.setErrorMsg(error.code);
+                console.log(error);
             });
         }
         catch (error) {
-            this.setErrorMsg(error.message);
+            this.setErrorMsg(error.code);
+            console.log(error);
         }
     };
     LoginPageComponent.prototype.register = function () {
@@ -45,11 +49,15 @@ var LoginPageComponent = (function () {
             case "auth/user-not-found":
                 this.error_msg = "Usuário não encontrado";
                 break;
+            case "auth/invalid-email":
+                this.error_msg = "E-Mail inválido";
+                break;
             case "auth/wrong-password":
                 this.error_msg = "Senha inválida";
                 break;
             case "auth/argument-error":
-                this.error_msg = "E-Mail inválido";
+                this.error_msg = "Argumentos inválidos";
+                break;
             default:
                 this.error_msg = msg;
                 break;

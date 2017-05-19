@@ -38,9 +38,12 @@ export class AppComponent implements OnInit {
     //   this.isLoggedIn = true;
     // else 
     //   this.isLoggedIn = false;
-    this.storage.getAsync("loginToken").then((result)=>{
-       console.log(result);
-    });
+    //this.storage.getAsync("loginToken").then((result) => {
+    //});
+  }
+
+  private register(): void {
+    this.router.navigate(['register']);
   }
 
   private on_logged_event(result: any) {
@@ -49,11 +52,11 @@ export class AppComponent implements OnInit {
 
     this.isLoggedIn = true;
 
-    if (result.emailVerified)
+    //if (result.emailVerified)
       this.router.navigate(['home']);
-    else {
+    //else {
       //route to not verified email
-    }
+    //}
   }
 
 }

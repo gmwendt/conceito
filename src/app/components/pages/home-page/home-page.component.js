@@ -10,10 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var auth_service_1 = require("../providers/auth.service");
+var auth_service_1 = require("../../../providers/auth.service");
+var data_service_1 = require("../../../providers/data.service");
 var HomePageComponent = (function () {
-    function HomePageComponent(authService, router) {
+    function HomePageComponent(authService, m_dataService, router) {
         this.authService = authService;
+        this.m_dataService = m_dataService;
         this.router = router;
     }
     HomePageComponent.prototype.ngOnInit = function () {
@@ -30,6 +32,11 @@ var HomePageComponent = (function () {
         this.authService.logout();
         this.router.navigate(['login']);
     };
+    HomePageComponent.prototype.add30 = function () {
+        var expDate = new Date(Date.now());
+        expDate.setDate(expDate.getDate() + 30);
+        this.m_dataService.writeUserData(this.user.uid, "expDate", expDate.toUTCString());
+    };
     return HomePageComponent;
 }());
 HomePageComponent = __decorate([
@@ -37,7 +44,7 @@ HomePageComponent = __decorate([
         selector: 'app-home-page',
         templateUrl: './home-page.component.html',
     }),
-    __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router])
+    __metadata("design:paramtypes", [auth_service_1.AuthService, data_service_1.DataService, router_1.Router])
 ], HomePageComponent);
 exports.HomePageComponent = HomePageComponent;
 //# sourceMappingURL=home-page.component.js.map

@@ -12,11 +12,13 @@ var http_1 = require("@angular/http");
 var router_1 = require("@angular/router");
 var app_component_1 = require("./app.component");
 var auth_service_1 = require("./providers/auth.service");
+var data_service_1 = require("./providers/data.service");
 var storage_1 = require("./services/storage");
-var default_home_component_1 = require("./default-home/default-home.component");
-var home_page_component_1 = require("./home-page/home-page.component");
-var login_page_component_1 = require("./login-page/login-page.component");
-var register_page_component_1 = require("./register-page/register-page.component");
+var default_home_component_1 = require("./components/pages/default-home/default-home.component");
+var home_page_component_1 = require("./components/pages/home-page/home-page.component");
+var login_page_component_1 = require("./components/pages/login-page/login-page.component");
+var register_page_component_1 = require("./components/pages/register-page/register-page.component");
+var select_country_list_1 = require("./components/layout/select_country_list");
 exports.firebaseConfig = {
     apiKey: "AIzaSyDbyzGqS8KfhXHcOb18Fltx-rLbC2cHgws",
     authDomain: "conceitofx.firebaseapp.com",
@@ -42,12 +44,10 @@ AppModule = __decorate([
             platform_browser_1.BrowserModule,
             forms_1.FormsModule,
             http_1.HttpModule,
-            //AngularFireModule.initializeApp(firebaseConfig),
-            //firebase.initializeApp()
             router_1.RouterModule.forRoot(routes)
         ],
-        declarations: [app_component_1.AppComponent, default_home_component_1.DefaultHomeComponent, login_page_component_1.LoginPageComponent, home_page_component_1.HomePageComponent, register_page_component_1.RegisterPageComponent],
-        providers: [auth_service_1.AuthService, storage_1.StorageService],
+        declarations: [app_component_1.AppComponent, default_home_component_1.DefaultHomeComponent, home_page_component_1.HomePageComponent, login_page_component_1.LoginPageComponent, register_page_component_1.RegisterPageComponent, select_country_list_1.SelectCountryList],
+        providers: [auth_service_1.AuthService, data_service_1.DataService, storage_1.StorageService],
         bootstrap: [app_component_1.AppComponent]
     })
 ], AppModule);
