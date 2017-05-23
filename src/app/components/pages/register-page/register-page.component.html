@@ -1,47 +1,93 @@
 <style type="text/css">
 
 .__container {
-	width: 560px;
+	margin-left: 35px;
+	padding-top: 1px;
+	width: 372px;
 }
 	
-.__register_button {
-	cursor: pointer;
-	float: right;
-	width: 100px;
-	margin-top: 22px;
-}
-
-.__register_button:hover {
-	font-weight: bold;
+.__register_container {
+	text-align: center;
 }
 
 .__display_message {
 	margin: 20px 0 0 0;
-	width: 300px;
-	height: 30px;
-	color: red;
-	float: left;
+	height: 42px;
+	color: orangered;
 }
 
-input { 
-	background: white; 
-  border: 1px solid #DDD; 
-  border-radius: 5px; 
-  box-shadow: 0 0 5px #DDD inset; 
-  color: #666; 
-  outline: none; 
-  height: 20px; 
-  width: 150px; 
-} 
+table {
+	    border-spacing: 0px;
+}
+
+td {
+	font-size: 10pt;
+}
+
+md-input-container {
+	width: 170px;
+}
 
 </style>
 
 <div class="__container">
-	Nome: <input type="text" style="margin-left: 9px" [(ngModel)]="m_first_name">
-	Sobrenome: <input type="text" name="" [(ngModel)]="m_last_name"><br/>
-	E-Mail: <input type="text" name="" style="margin-left: 8px;" [(ngModel)]="m_email"><br/>
-	<select-country-list (countryChanged)="m_country = $event"></select-country-list>
-	Senha: <input type="text" name="" style="margin-left: 10px;" [(ngModel)]="m_pass"><br/>
-	<div class="__display_message">{{ m_alert }}</div>
-	<div class="__register_button" (click)="register()">Register</div>
+ 	<h4>Preencha os campos abaixo</h4>
+	
+	<table>
+		<tr>
+			<td>
+				<md-input-container>
+					<input mdInput placeholder="Nome" [(ngModel)]="m_first_name" />
+				</md-input-container>
+			</td>
+			<td>
+				<md-input-container style="padding-left: 15px">
+					<input mdInput placeholder="Sobrenome" [(ngModel)]="m_last_name" />
+				</md-input-container>
+			</td>
+		</tr>
+		<tr>
+			<td><select-country-list (countryChanged)="m_country = $event"></select-country-list></td>
+			<td>
+				<md-input-container style="padding-left: 15px; width: 170px">
+					<input mdInput type="date" placeholder="Data de nascimento" />
+				</md-input-container>
+			</td>
+		</tr>
+	</table>
+
+	 <br />
+
+	<table>
+		<tr>
+			<td>
+				<md-input-container style="width: 370px">
+					<input mdInput placeholder="E-Mail" [(ngModel)]="m_email" />
+				</md-input-container>
+			</td>
+		</tr>
+	</table>
+
+	<br />
+
+	<table>
+		<tr>
+			<td>
+				<md-input-container>
+					<input mdInput placeholder="Senha" [(ngModel)]="m_pass" />
+				</md-input-container>
+			</td>
+			<td>
+				<md-input-container style="padding-left: 15px">
+					<input mdInput placeholder="Confirme sua senha" />
+				</md-input-container>
+			</td>
+		</tr>
+	</table>
+
+	<div class="__register_container">
+		<div class="__display_message">{{ m_alert }}</div>
+		<!-- <div class="__register_button" (click)="register()">Register</div> -->
+		<button md-button (click)="register()">Registrar</button>
+	</div>
 </div>

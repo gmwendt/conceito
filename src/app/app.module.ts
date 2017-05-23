@@ -18,6 +18,10 @@ import { LoginPageComponent } from './components/pages/login-page/login-page.com
 import { RegisterPageComponent } from './components/pages/register-page/register-page.component';
 import { SelectCountryList } from './components/layout/select_country_list';
 
+import { MaterialModule } from '@angular/material';
+
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
 export const firebaseConfig = {
     apiKey: "AIzaSyDbyzGqS8KfhXHcOb18Fltx-rLbC2cHgws",
     authDomain: "conceitofx.firebaseapp.com",
@@ -37,8 +41,10 @@ export const firebaseConfig = {
 @NgModule({
   imports: [ 
   	BrowserModule, 
+    BrowserAnimationsModule,
   	FormsModule,
     HttpModule,
+    MaterialModule,
     RouterModule.forRoot(routes)
   ],
   declarations: [ AppComponent, DefaultHomeComponent, HomePageComponent, LoginPageComponent, RegisterPageComponent, SelectCountryList ],
